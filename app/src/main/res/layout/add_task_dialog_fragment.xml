@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:minWidth="300dp"
+    android:padding="8dp"
+    >
+
+    <TextView
+        android:id="@+id/create_task_TextView_title"
+        style="?attr/textAppearanceHeadline6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:importantForAccessibility="no"
+        android:text="@string/create_new_task"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/create_task_TextInputLayout_projects"
+        style="@style/Widget.TodoK.Spinner"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/create_task_TextView_title"
+        app:startIconDrawable="@drawable/ic_folder_24"
+        tools:endIconMode="dropdown_menu"
+        >
+
+        <AutoCompleteTextView
+            android:id="@+id/create_task_AutoCompleteTextView_projects"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/project"
+            android:inputType="none"
+            />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/create_task_TextInputLayout_description"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/create_task_TextInputLayout_projects"
+        app:startIconDrawable="@drawable/ic_edit_24"
+        >
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/create_task_TextInputEditText_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/task_name"
+            android:inputType="textAutoComplete"
+            />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <Button
+        android:id="@+id/create_task_Button_cancel"
+        style="?attr/borderlessButtonStyle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:layout_marginEnd="8dp"
+        android:minWidth="64dp"
+        android:text="@android:string/cancel"
+        app:layout_constraintEnd_toStartOf="@id/create_task_Button_ok"
+        app:layout_constraintTop_toBottomOf="@id/create_task_TextInputLayout_description"
+        />
+
+    <Button
+        android:id="@+id/create_task_Button_ok"
+        style="?attr/borderlessButtonStyle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:layout_marginEnd="16dp"
+        android:minWidth="64dp"
+        android:text="@android:string/ok"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/create_task_TextInputLayout_description"
+        />
+
+    <ProgressBar
+        android:id="@+id/create_task_progress_bar"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="@id/create_task_Button_ok"
+        app:layout_constraintEnd_toEndOf="@id/create_task_Button_ok"
+        app:layout_constraintStart_toStartOf="@id/create_task_Button_ok"
+        app:layout_constraintTop_toTopOf="@id/create_task_Button_ok"
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Widget.TodoK.Spinner" parent= "Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"/>
+
+    <style name="Widget.TodoK.TextInputLayout" parent= "Widget.MaterialComponents.TextInputLayout.OutlinedBox"/>
+</resources>
