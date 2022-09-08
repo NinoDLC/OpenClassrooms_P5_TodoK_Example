@@ -1,0 +1,5 @@
+https://developer.android.com/training/dependency-injection/hilt-testing#kotlin
+https://github.com/android/architecture-samples/blob/views-hilt/app/src/androidTest/java/com/example/android/architecture/blueprints/todoapp/HiltExt.kt#L37
+https://github.com/robolectric/robolectric/pull/4736
+https://stackoverflow.com/questions/53595837/androidx-no-instrumentation-registered-must-run-under-a-registering-instrumen
+https://github.com/google/dagger/issues/2033

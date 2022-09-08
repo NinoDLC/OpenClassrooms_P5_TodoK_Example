@@ -27,6 +27,9 @@
             </intent-filter>
         </activity>
 
+        <!-- For unit test only -->
+        <activity android:name="fr.delcey.todok.ui.HiltTestActivity" />
+
         <!-- See https://developer.android.com/training/dependency-injection/hilt-jetpack#workmanager -->
         <!-- See https://developer.android.com/jetpack/androidx/releases/work#2.6.0-alpha01 -->
         <provider

@@ -1,6 +1,5 @@
 package fr.delcey.todok.ui.tasks
 
-import android.content.Context
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
@@ -15,6 +14,7 @@ import fr.delcey.todok.databinding.TasksFragmentBinding
 import fr.delcey.todok.domain.exhaustive
 import fr.delcey.todok.ui.NavigationListener
 import fr.delcey.todok.ui.utils.viewBinding
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class TasksFragment : Fragment(R.layout.tasks_fragment) {
@@ -23,15 +23,11 @@ class TasksFragment : Fragment(R.layout.tasks_fragment) {
         fun newInstance() = TasksFragment()
     }
 
+    @Inject
+    lateinit var navigationListener : NavigationListener
+
     private val binding by viewBinding { TasksFragmentBinding.bind(it) }
     private val viewModel by viewModels<TasksViewModel>()
-
-    private lateinit var navigationListener: NavigationListener
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        navigationListener = context as NavigationListener
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

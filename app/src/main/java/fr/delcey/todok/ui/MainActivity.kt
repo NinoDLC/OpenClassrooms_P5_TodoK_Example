@@ -5,12 +5,11 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.commitNow
 import dagger.hilt.android.AndroidEntryPoint
 import fr.delcey.todok.databinding.MainActivityBinding
-import fr.delcey.todok.ui.add_task.AddTaskDialogFragment
 import fr.delcey.todok.ui.tasks.TasksFragment
 import fr.delcey.todok.ui.utils.viewBinding
 
 @AndroidEntryPoint
-class MainActivity : AppCompatActivity(), NavigationListener{
+class MainActivity : AppCompatActivity() {
 
     private val binding by viewBinding { MainActivityBinding.inflate(it) }
 
@@ -24,9 +23,5 @@ class MainActivity : AppCompatActivity(), NavigationListener{
                 replace(binding.mainFrameLayout.id, TasksFragment.newInstance())
             }
         }
-    }
-
-    override fun displayAddTaskDialog() {
-        AddTaskDialogFragment.newInstance().show(supportFragmentManager, null)
     }
 }
