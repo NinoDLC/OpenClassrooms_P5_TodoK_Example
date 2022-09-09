@@ -8,7 +8,7 @@
     >
 
     <ImageView
-        android:id="@+id/add_task_project_item_image_view_color"
+        android:id="@+id/add_task_project_item_ImageView_color"
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:layout_margin="8dp"
@@ -21,7 +21,7 @@
         />
 
     <TextView
-        android:id="@+id/add_task_project_item_text_view_name"
+        android:id="@+id/add_task_project_item_TextView_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
@@ -30,7 +30,7 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/add_task_project_item_image_view_color"
+        app:layout_constraintStart_toEndOf="@id/add_task_project_item_ImageView_color"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="Project Lucidia"
         />

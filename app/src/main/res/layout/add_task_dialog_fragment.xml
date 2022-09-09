@@ -95,7 +95,7 @@
         />
 
     <ProgressBar
-        android:id="@+id/create_task_progress_bar"
+        android:id="@+id/create_task_ProgressBar"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="@id/create_task_Button_ok"
