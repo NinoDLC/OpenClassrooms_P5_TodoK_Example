@@ -9,9 +9,55 @@ plugins {
     id 'com.android.application' version '7.2.2' apply false
     id 'org.jetbrains.kotlin.android' version '1.7.10' apply false
     id 'com.google.dagger.hilt.android' version "$hilt_version" apply false
-    id 'org.jetbrains.kotlinx.kover' version "0.5.0"
+    id 'org.jetbrains.kotlinx.kover' version "0.6.0"
 }
 
 task clean(type: Delete) {
     delete rootProject.buildDir
+}
+
+koverMerged {
+    enable()
+
+    filters {
+        classes {
+            excludes.addAll(
+                    // Hilt
+                    "dagger.hilt.*",
+                    "hilt_aggregated_deps.*",
+                    "*_Factory",
+                    "*_Factory\$*",
+                    "*_*Factory",
+                    "*_*Factory\$*",
+                    "*_Impl",
+                    "*_Impl\$*",
+                    "*.DataModule",
+                    "*.DataModule\$*",
+                    "*_MembersInjector",
+                    "*_HiltModules",
+                    "*_HiltModules\$*",
+
+                    // Gradle Generated
+                    "fr.delcey.todok.BuildConfig", // TODO Nino: Why Kover doesn't understand tests on BuildConfig ?!
+                    "fr.delcey.todok.data.BuildConfigResolver", // Can't mockK static field: https://github.com/mockk/mockk/issues/107
+
+                    // Utils
+                    "fr.delcey.todok.ui.utils*", // TODO Nino: UnitTest utils package
+
+                    // TODO Nino: Remove below when Kover can handle Android integration tests!
+                    // Android UI
+                    "*MainApplication",
+                    "*MainApplication\$*",
+                    "*Fragment",
+                    "*Fragment\$*",
+                    "*Activity",
+                    "*Activity\$*",
+                    "*AppDatabase",
+                    "*AppDatabase\$*",
+                    "fr.delcey.todok.databinding.*", // ViewBinding
+                    "*Adapter",
+                    "*Adapter\$*"
+            )
+        }
+    }
 }
