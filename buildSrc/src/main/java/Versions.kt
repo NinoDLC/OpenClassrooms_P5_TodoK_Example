@@ -10,4 +10,5 @@ object Versions {
     const val KOTLIN = "1.7.10"
     const val HILT = "2.42"
     const val ROOM = "2.4.3"
+    const val KOVER = "0.6.0"
 }

@@ -104,3 +104,9 @@ dependencies {
     androidTestImplementation(Libs.RULES)
     androidTestImplementation(Libs.RUNNER)
 }
+
+kover {
+    instrumentation {
+        excludeTasks.add("testReleaseUnitTest")
+    }
+}
