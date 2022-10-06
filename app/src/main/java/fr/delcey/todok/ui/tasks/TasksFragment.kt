@@ -12,7 +12,6 @@ import androidx.fragment.app.viewModels
 import dagger.hilt.android.AndroidEntryPoint
 import fr.delcey.todok.R
 import fr.delcey.todok.databinding.TasksFragmentBinding
-import fr.delcey.todok.domain.exhaustive
 import fr.delcey.todok.ui.NavigationListener
 import fr.delcey.todok.ui.utils.viewBinding
 
@@ -49,7 +48,7 @@ class TasksFragment : Fragment(R.layout.tasks_fragment) {
         viewModel.singleLiveEvent.observe(viewLifecycleOwner) { tasksEvent ->
             when (tasksEvent) {
                 TasksEvent.NavigateToAddTask -> navigationListener.displayAddTaskDialog()
-            }.exhaustive
+            }
         }
 
         requireActivity().addMenuProvider(object : MenuProvider {

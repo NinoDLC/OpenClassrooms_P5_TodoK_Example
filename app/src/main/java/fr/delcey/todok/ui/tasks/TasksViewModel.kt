@@ -1,5 +1,6 @@
 package fr.delcey.todok.ui.tasks
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
@@ -68,6 +69,9 @@ class TasksViewModel @Inject constructor(
         taskId = taskEntity.id,
         projectColor = projectEntity.colorInt,
         description = taskEntity.description,
+        onClickEvent = EquatableCallback {
+            Log.d("Nino", "TasksViewModel.onClickEvent() called with id: ${taskEntity.id}")
+        },
         onDeleteEvent = EquatableCallback {
             viewModelScope.launch(coroutineDispatcherProvider.io) {
                 deleteTaskUseCase.invoke(taskEntity.id)

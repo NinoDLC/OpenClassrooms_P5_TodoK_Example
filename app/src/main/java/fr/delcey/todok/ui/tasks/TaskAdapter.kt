@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.RecyclerView
 import fr.delcey.todok.databinding.TaskEmptyStateItemBinding
 import fr.delcey.todok.databinding.TaskHeaderItemBinding
 import fr.delcey.todok.databinding.TaskItemBinding
-import fr.delcey.todok.domain.exhaustive
 
 class TaskAdapter : ListAdapter<TasksViewStateItem, TaskAdapter.TaskViewHolder>(TaskDiffCallback) {
 
@@ -24,7 +23,7 @@ class TaskAdapter : ListAdapter<TasksViewStateItem, TaskAdapter.TaskViewHolder>(
             is TaskViewHolder.EmptyState -> Unit
             is TaskViewHolder.Header -> holder.bind(item = getItem(position) as TasksViewStateItem.Header)
             is TaskViewHolder.Task -> holder.bind(item = getItem(position) as TasksViewStateItem.Task)
-        }.exhaustive
+        }
     }
 
     override fun getItemViewType(position: Int): Int = getItem(position).type.ordinal
@@ -60,6 +59,7 @@ class TaskAdapter : ListAdapter<TasksViewStateItem, TaskAdapter.TaskViewHolder>(
             fun bind(item: TasksViewStateItem.Task) {
                 binding.taskItemImageViewColor.setColorFilter(item.projectColor)
                 binding.taskItemTextViewDescription.text = item.description
+                binding.root.setOnClickListener { item.onClickEvent.invoke() }
                 binding.taskItemImageViewDelete.setOnClickListener { item.onDeleteEvent.invoke() }
             }
         }

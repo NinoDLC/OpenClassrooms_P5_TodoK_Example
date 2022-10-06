@@ -21,6 +21,7 @@ sealed class TasksViewStateItem(
         @ColorInt
         val projectColor: Int,
         val description: String,
+        val onClickEvent: EquatableCallback,
         val onDeleteEvent: EquatableCallback,
     ) : TasksViewStateItem(Type.TASK)
 

@@ -26,6 +26,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".ui.task_detail.TaskDetailActivity" />
 
         <!-- See https://developer.android.com/training/dependency-injection/hilt-jetpack#workmanager -->
         <!-- See https://developer.android.com/jetpack/androidx/releases/work#2.6.0-alpha01 -->

@@ -9,7 +9,6 @@ import androidx.fragment.app.viewModels
 import dagger.hilt.android.AndroidEntryPoint
 import fr.delcey.todok.R
 import fr.delcey.todok.databinding.AddTaskDialogFragmentBinding
-import fr.delcey.todok.domain.exhaustive
 import fr.delcey.todok.ui.utils.viewBinding
 
 @AndroidEntryPoint
@@ -51,7 +50,7 @@ class AddTaskDialogFragment : DialogFragment(R.layout.add_task_dialog_fragment) 
                     addTaskEvent.text.toCharSequence(requireContext()),
                     Toast.LENGTH_SHORT
                 ).show()
-            }.exhaustive
+            }
         }
     }
 }

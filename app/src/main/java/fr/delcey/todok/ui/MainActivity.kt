@@ -21,7 +21,7 @@ class MainActivity : AppCompatActivity(), NavigationListener{
 
         if (savedInstanceState == null) {
             supportFragmentManager.commitNow {
-                replace(binding.mainFrameLayout.id, TasksFragment.newInstance())
+                replace(binding.mainFrameLayoutContainer.id, TasksFragment.newInstance())
             }
         }
     }
