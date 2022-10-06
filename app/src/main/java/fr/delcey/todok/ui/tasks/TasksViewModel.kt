@@ -1,19 +1,19 @@
 package fr.delcey.todok.ui.tasks
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import fr.delcey.todok.domain.CoroutineDispatcherProvider
+import fr.delcey.todok.domain.navigate.NavigateUseCase
+import fr.delcey.todok.domain.navigate.model.DestinationEntity
 import fr.delcey.todok.domain.project.ProjectEntity
 import fr.delcey.todok.domain.project_with_tasks.GetProjectsWithTasksUseCase
 import fr.delcey.todok.domain.task.DeleteTaskUseCase
 import fr.delcey.todok.domain.task.InsertRandomTaskUseCase
 import fr.delcey.todok.domain.task.TaskEntity
 import fr.delcey.todok.ui.utils.EquatableCallback
-import fr.delcey.todok.ui.utils.SingleLiveEvent
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.combine
@@ -25,6 +25,7 @@ import javax.inject.Inject
 class TasksViewModel @Inject constructor(
     private val deleteTaskUseCase: DeleteTaskUseCase,
     private val insertRandomTaskUseCase: InsertRandomTaskUseCase,
+    private val navigateUseCase: NavigateUseCase,
     private val coroutineDispatcherProvider: CoroutineDispatcherProvider,
     getProjectsWithTasksUseCase: GetProjectsWithTasksUseCase,
 ) : ViewModel() {
@@ -63,14 +64,14 @@ class TasksViewModel @Inject constructor(
         }.collect()
     }
 
-    val singleLiveEvent = SingleLiveEvent<TasksEvent>()
-
     private fun mapItem(projectEntity: ProjectEntity, taskEntity: TaskEntity) = TasksViewStateItem.Task(
         taskId = taskEntity.id,
         projectColor = projectEntity.colorInt,
         description = taskEntity.description,
         onClickEvent = EquatableCallback {
-            Log.d("Nino", "TasksViewModel.onClickEvent() called with id: ${taskEntity.id}")
+            viewModelScope.launch {
+                navigateUseCase.invoke(DestinationEntity.Activity.Detail(taskEntity.id))
+            }
         },
         onDeleteEvent = EquatableCallback {
             viewModelScope.launch(coroutineDispatcherProvider.io) {
@@ -86,7 +87,9 @@ class TasksViewModel @Inject constructor(
     }
 
     fun onAddButtonClicked() {
-        singleLiveEvent.value = TasksEvent.NavigateToAddTask
+        viewModelScope.launch {
+            navigateUseCase.invoke(DestinationEntity.DialogFragment.AddTask)
+        }
     }
 
     fun onAddButtonLongClicked() {

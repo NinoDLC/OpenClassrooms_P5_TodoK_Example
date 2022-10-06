@@ -34,7 +34,7 @@ class AddTaskDialogFragment : DialogFragment(R.layout.add_task_dialog_fragment) 
         binding.createTaskTextInputEditTextDescription.doAfterTextChanged {
             viewModel.onTaskDescriptionChanged(it?.toString())
         }
-        binding.createTaskButtonCancel.setOnClickListener { dismiss() }
+        binding.createTaskButtonCancel.setOnClickListener { viewModel.onCancelButtonClicked() }
         binding.createTaskButtonOk.setOnClickListener { viewModel.onOkButtonClicked() }
 
         viewModel.viewStateLiveData.observe(this) { addTaskViewState ->
@@ -44,7 +44,6 @@ class AddTaskDialogFragment : DialogFragment(R.layout.add_task_dialog_fragment) 
         }
         viewModel.singleLiveEvent.observe(this) { addTaskEvent: AddTaskEvent ->
             when (addTaskEvent) {
-                is AddTaskEvent.Dismiss -> dismiss()
                 is AddTaskEvent.Toast -> Toast.makeText(
                     requireContext(),
                     addTaskEvent.text.toCharSequence(requireContext()),

@@ -1,6 +1,5 @@
 package fr.delcey.todok.ui.tasks
 
-import android.content.Context
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
@@ -12,7 +11,6 @@ import androidx.fragment.app.viewModels
 import dagger.hilt.android.AndroidEntryPoint
 import fr.delcey.todok.R
 import fr.delcey.todok.databinding.TasksFragmentBinding
-import fr.delcey.todok.ui.NavigationListener
 import fr.delcey.todok.ui.utils.viewBinding
 
 @AndroidEntryPoint
@@ -24,13 +22,6 @@ class TasksFragment : Fragment(R.layout.tasks_fragment) {
 
     private val binding by viewBinding { TasksFragmentBinding.bind(it) }
     private val viewModel by viewModels<TasksViewModel>()
-
-    private lateinit var navigationListener: NavigationListener
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        navigationListener = context as NavigationListener
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -44,11 +35,6 @@ class TasksFragment : Fragment(R.layout.tasks_fragment) {
         }
         viewModel.viewStateLiveData.observe(viewLifecycleOwner) { taskViewStates ->
             adapter.submitList(taskViewStates)
-        }
-        viewModel.singleLiveEvent.observe(viewLifecycleOwner) { tasksEvent ->
-            when (tasksEvent) {
-                TasksEvent.NavigateToAddTask -> navigationListener.displayAddTaskDialog()
-            }
         }
 
         requireActivity().addMenuProvider(object : MenuProvider {

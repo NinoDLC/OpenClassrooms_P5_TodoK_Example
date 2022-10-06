@@ -7,6 +7,8 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import fr.delcey.todok.R
 import fr.delcey.todok.domain.CoroutineDispatcherProvider
+import fr.delcey.todok.domain.navigate.NavigateUseCase
+import fr.delcey.todok.domain.navigate.model.DestinationEntity
 import fr.delcey.todok.domain.project.GetProjectsUseCase
 import fr.delcey.todok.domain.task.InsertTaskUseCase
 import fr.delcey.todok.domain.task.TaskEntity
@@ -22,6 +24,7 @@ import javax.inject.Inject
 @HiltViewModel
 class AddTaskViewModel @Inject constructor(
     private val insertTaskUseCase: InsertTaskUseCase,
+    private val navigateUseCase: NavigateUseCase,
     private val coroutineDispatcherProvider: CoroutineDispatcherProvider,
     getProjectsUseCase: GetProjectsUseCase,
 ) : ViewModel() {
@@ -79,16 +82,22 @@ class AddTaskViewModel @Inject constructor(
 
                 isAddingTaskInDatabaseMutableStateFlow.value = false
 
-                withContext(coroutineDispatcherProvider.main) {
-                    singleLiveEvent.value = if (success) {
-                        AddTaskEvent.Dismiss
-                    } else {
-                        AddTaskEvent.Toast(text = NativeText.Resource(R.string.cant_insert_task))
+                if (success) {
+                    navigateUseCase.invoke(DestinationEntity.Dismiss)
+                } else {
+                    withContext(coroutineDispatcherProvider.main) {
+                        singleLiveEvent.value = AddTaskEvent.Toast(text = NativeText.Resource(R.string.cant_insert_task))
                     }
                 }
             }
         } else {
             singleLiveEvent.value = AddTaskEvent.Toast(text = NativeText.Resource(R.string.error_inserting_task))
+        }
+    }
+
+    fun onCancelButtonClicked() {
+        viewModelScope.launch {
+            navigateUseCase.invoke(DestinationEntity.Dismiss)
         }
     }
 }

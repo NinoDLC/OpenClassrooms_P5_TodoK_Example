@@ -3,13 +3,13 @@ package fr.delcey.todok.ui.task_detail
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import dagger.hilt.android.AndroidEntryPoint
 import fr.delcey.todok.databinding.TaskDetailActivityBinding
+import fr.delcey.todok.ui.BaseActivity
 import fr.delcey.todok.ui.utils.viewBinding
 
 @AndroidEntryPoint
-class TaskDetailActivity : AppCompatActivity() {
+class TaskDetailActivity : BaseActivity() {
 
     companion object {
         private const val EXTRA_TASK_ID = "EXTRA_TASK_ID"
