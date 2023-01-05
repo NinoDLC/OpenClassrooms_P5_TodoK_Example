@@ -79,7 +79,7 @@ class AddTaskViewModelTest {
             )
 
             // When 2
-            advanceTimeBy(50L)
+            advanceTimeBy(INSERT_TASK_DELAY)
             runCurrent()
 
             // Then 2

@@ -2,8 +2,8 @@ object Versions {
     const val VERSION_NAME = "1.0"
     const val VERSION_CODE = 1
 
-    const val COMPILE_SDK = 31
-    const val TARGET_SDK = 30
+    const val COMPILE_SDK = 32
+    const val TARGET_SDK = 32
     const val MIN_SDK = 21
 
     const val ANDROID_GRADLE_PLUGIN = "7.2.2"
