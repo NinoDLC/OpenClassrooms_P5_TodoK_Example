@@ -1,4 +1,5 @@
 @file:Suppress("unused")
+
 package fr.delcey.todok.ui.utils
 
 import androidx.lifecycle.LiveData

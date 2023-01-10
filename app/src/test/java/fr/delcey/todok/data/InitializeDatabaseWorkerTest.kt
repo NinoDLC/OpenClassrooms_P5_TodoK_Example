@@ -10,7 +10,12 @@ import fr.delcey.todok.TestCoroutineRule
 import fr.delcey.todok.domain.project.InsertProjectUseCase
 import fr.delcey.todok.getDefaultProjectEntitiesAsJson
 import fr.delcey.todok.getDefaultProjectEntity
-import io.mockk.*
+import io.mockk.coJustRun
+import io.mockk.coVerify
+import io.mockk.confirmVerified
+import io.mockk.every
+import io.mockk.mockk
+import io.mockk.spyk
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test

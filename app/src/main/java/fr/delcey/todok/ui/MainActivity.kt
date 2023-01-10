@@ -10,7 +10,7 @@ import fr.delcey.todok.ui.tasks.TasksFragment
 import fr.delcey.todok.ui.utils.viewBinding
 
 @AndroidEntryPoint
-class MainActivity : AppCompatActivity(), NavigationListener{
+class MainActivity : AppCompatActivity(), NavigationListener {
 
     private val binding by viewBinding { MainActivityBinding.inflate(it) }
 
