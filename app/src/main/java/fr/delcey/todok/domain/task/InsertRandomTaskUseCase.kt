@@ -4,9 +4,7 @@ import fr.delcey.todok.data.BuildConfigResolver
 import fr.delcey.todok.domain.project.GetProjectsUseCase
 import kotlinx.coroutines.flow.first
 import javax.inject.Inject
-import javax.inject.Singleton
 
-@Singleton
 class InsertRandomTaskUseCase @Inject constructor(
     private val getProjectsUseCase: GetProjectsUseCase,
     private val insertTaskUseCase: InsertTaskUseCase,

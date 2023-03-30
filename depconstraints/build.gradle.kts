@@ -45,7 +45,7 @@ val archCoreTesting = "2.1.0" // TODO NINO How to remove mockito dep ?
 // Unit tests
 
 val assertk = "0.25"
-val coroutinesTest = "1.6.4"
+val coroutinesTest = "1.7.0-Beta"
 val junit = "4.13.2"
 val mockk = "1.12.7"
 
