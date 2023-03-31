@@ -110,6 +110,9 @@ koverAndroid {
     common {
         filters {
             excludes {
+                annotatedBy(
+                    "androidx.room.Database",
+                )
                 packages(
                     "hilt_aggregated_deps",
                     "dagger.hilt",
@@ -143,8 +146,6 @@ koverAndroid {
                     "*Fragment\$*",
                     "*Activity",
                     "*Activity\$*",
-                    "*AppDatabase",
-                    "*AppDatabase\$*",
                     "fr.delcey.todok.databinding.*", // ViewBinding
                     "*Adapter",
                     "*Adapter\$*",
