@@ -4,7 +4,7 @@ import androidx.annotation.ColorInt
 
 data class AddTaskViewStateItem(
     val projectId: Long,
-    @ColorInt
+    @get:ColorInt @param:ColorInt
     val projectColor: Int,
     val projectName: String,
 )

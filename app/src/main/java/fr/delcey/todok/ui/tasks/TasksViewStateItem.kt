@@ -18,7 +18,7 @@ sealed class TasksViewStateItem(
 
     data class Task(
         val taskId: Long,
-        @ColorInt
+        @get:ColorInt @param:ColorInt
         val projectColor: Int,
         val description: String,
         val onDeleteEvent: EquatableCallback,
