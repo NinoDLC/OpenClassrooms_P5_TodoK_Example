@@ -110,27 +110,30 @@ koverAndroid {
     common {
         filters {
             excludes {
+                annotatedBy(
+                    "dagger.Module",
+                    "dagger.internal.DaggerGenerated",
+                    "androidx.room.Database",
+                )
                 packages(
-                    "hilt_aggregated_deps",
-                    "dagger.hilt",
+                    "hilt_aggregated_deps", // Hilt: GeneratedInjectors (NOT annotated by DaggerGenerated)
+                    "fr.delcey.todok.databinding", // ViewBinding
                 )
                 classes(
                     // Hilt
-                    "*_Factory",
-                    "*_Factory\$*",
-                    "*_*Factory",
+                    // TODO Nino Delete when this is fixed: https://github.com/Kotlin/kotlinx-kover/issues/331
                     "*_*Factory\$*",
+
+                    // Room
                     "*_Impl",
                     "*_Impl\$*",
-                    "*.DataModule",
-                    "*.DataModule\$*",
-                    "*_MembersInjector",
-                    "*_HiltModules",
-                    "*_HiltModules\$*",
+
+                    // TODO Nino Delete when this is fixed: https://github.com/Kotlin/kotlinx-kover/issues/331
+                    "*AppDatabase\$*",
 
                     // Gradle Generated
                     "fr.delcey.todok.BuildConfig", // TODO Nino: Why Kover doesn't understand tests on BuildConfig ?!
-                    "fr.delcey.todok.data.BuildConfigResolver", // Can't mockK static field: https://github.com/mockk/mockk/issues/107
+                    "fr.delcey.todok.data.BuildConfigResolver",
 
                     // Utils
                     "fr.delcey.todok.ui.utils*", // TODO Nino: UnitTest utils package
@@ -143,9 +146,6 @@ koverAndroid {
                     "*Fragment\$*",
                     "*Activity",
                     "*Activity\$*",
-                    "*AppDatabase",
-                    "*AppDatabase\$*",
-                    "fr.delcey.todok.databinding.*", // ViewBinding
                     "*Adapter",
                     "*Adapter\$*",
                 )

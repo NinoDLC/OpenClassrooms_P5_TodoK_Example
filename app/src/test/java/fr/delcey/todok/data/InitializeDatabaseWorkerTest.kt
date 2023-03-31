@@ -32,7 +32,7 @@ class InitializeDatabaseWorkerTest {
     private val context: Context = mockk()
     private val workerParams: WorkerParameters = mockk(relaxed = true)
     private val insertProjectUseCase: InsertProjectUseCase = mockk()
-    private val gson: Gson = DataModule.provideGson()
+    private val gson: Gson = DataModule().provideGson()
 
     private val initializeDatabaseWorker = spyk(
         InitializeDatabaseWorker(

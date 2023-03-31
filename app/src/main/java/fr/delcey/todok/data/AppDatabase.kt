@@ -37,7 +37,7 @@ abstract class AppDatabase : RoomDatabase() {
                 DATABASE_NAME
             )
 
-            builder.addCallback(object : RoomDatabase.Callback() {
+            builder.addCallback(object : Callback() {
                 override fun onCreate(db: SupportSQLiteDatabase) {
                     val entitiesAsJson = gson.toJson(
                         listOf(
