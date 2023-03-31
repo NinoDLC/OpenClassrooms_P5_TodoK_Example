@@ -110,10 +110,12 @@ koverAndroid {
     common {
         filters {
             excludes {
+                packages(
+                    "hilt_aggregated_deps",
+                    "dagger.hilt",
+                )
                 classes(
                     // Hilt
-                    "dagger.hilt.*",
-                    "hilt_aggregated_deps.*",
                     "*_Factory",
                     "*_Factory\$*",
                     "*_*Factory",
