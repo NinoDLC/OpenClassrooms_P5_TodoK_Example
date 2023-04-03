@@ -14,4 +14,4 @@
  * Code Coverage entre supérieur à 93% (report disponible grâce à `Kover`)
 
 # Commandes utiles :
-`./gradlew koverHtmlReport` pour générer le rapport de coverage des tests unitaires
+`./gradlew koverHtmlReportDebug` pour générer le rapport de coverage des tests unitaires
