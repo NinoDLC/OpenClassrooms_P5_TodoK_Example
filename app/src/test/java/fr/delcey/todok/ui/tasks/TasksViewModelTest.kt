@@ -3,12 +3,20 @@ package fr.delcey.todok.ui.tasks
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import assertk.assertThat
 import assertk.assertions.isEqualTo
-import fr.delcey.todok.*
+import fr.delcey.todok.TestCoroutineRule
 import fr.delcey.todok.domain.project_with_tasks.GetProjectsWithTasksUseCase
 import fr.delcey.todok.domain.task.DeleteTaskUseCase
-import fr.delcey.todok.domain.task.InsertRandomTaskUseCase
+import fr.delcey.todok.domain.task.AddRandomTaskUseCase
+import fr.delcey.todok.getDefaultProjectEntity
+import fr.delcey.todok.getDefaultProjectWithTasksEntities
+import fr.delcey.todok.getDefaultTaskEntity
+import fr.delcey.todok.observeForTesting
 import fr.delcey.todok.ui.utils.EquatableCallback
-import io.mockk.*
+import io.mockk.coJustRun
+import io.mockk.coVerify
+import io.mockk.confirmVerified
+import io.mockk.every
+import io.mockk.mockk
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.test.runCurrent
 import org.junit.Before
@@ -24,21 +32,23 @@ class TasksViewModelTest {
     val testCoroutineRule = TestCoroutineRule()
 
     private val deleteTaskUseCase: DeleteTaskUseCase = mockk()
-    private val insertRandomTaskUseCase: InsertRandomTaskUseCase = mockk()
+    private val addRandomTaskUseCase: AddRandomTaskUseCase = mockk()
     private val getProjectsWithTasksUseCase: GetProjectsWithTasksUseCase = mockk()
 
-    private val tasksViewModel = TasksViewModel(
-        deleteTaskUseCase = deleteTaskUseCase,
-        insertRandomTaskUseCase = insertRandomTaskUseCase,
-        coroutineDispatcherProvider = testCoroutineRule.getTestCoroutineDispatcherProvider(),
-        getProjectsWithTasksUseCase = getProjectsWithTasksUseCase,
-    )
+    private lateinit var tasksViewModel: TasksViewModel
 
     @Before
     fun setUp() {
         coJustRun { deleteTaskUseCase.invoke(any()) }
-        coJustRun { insertRandomTaskUseCase.invoke() }
+        coJustRun { addRandomTaskUseCase.invoke() }
         every { getProjectsWithTasksUseCase.invoke() } returns flowOf(getDefaultProjectWithTasksEntities())
+
+        tasksViewModel = TasksViewModel(
+            deleteTaskUseCase = deleteTaskUseCase,
+            addRandomTaskUseCase = addRandomTaskUseCase,
+            coroutineDispatcherProvider = testCoroutineRule.getTestCoroutineDispatcherProvider(),
+            getProjectsWithTasksUseCase = getProjectsWithTasksUseCase,
+        )
     }
 
     @Test
@@ -227,8 +237,8 @@ class TasksViewModelTest {
         runCurrent()
 
         // Then
-        coVerify(exactly = 1) { insertRandomTaskUseCase.invoke() }
-        confirmVerified(insertRandomTaskUseCase)
+        coVerify(exactly = 1) { addRandomTaskUseCase.invoke() }
+        confirmVerified(addRandomTaskUseCase)
     }
 
     // region OUT
@@ -244,7 +254,7 @@ class TasksViewModelTest {
         getDefaultTasksViewStateItem(2, 8),
     )
 
-    private fun getDefaultTasksViewStateItem(projectId: Int, taskId: Int) = TasksViewStateItem.Task(
+    private fun getDefaultTasksViewStateItem(projectId: Long, taskId: Long) = TasksViewStateItem.Task(
         taskId = getDefaultTaskEntity(projectId, taskId).id,
         projectColor = getDefaultProjectEntity(projectId).colorInt,
         description = getDefaultTaskEntity(projectId, taskId).description,

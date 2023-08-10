@@ -10,7 +10,7 @@ import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
 import fr.delcey.todok.data.utils.fromJson
 import fr.delcey.todok.domain.CoroutineDispatcherProvider
-import fr.delcey.todok.domain.project.InsertProjectUseCase
+import fr.delcey.todok.domain.project.AddProjectUseCase
 import fr.delcey.todok.domain.project.ProjectEntity
 import kotlinx.coroutines.withContext
 
@@ -18,7 +18,7 @@ import kotlinx.coroutines.withContext
 class InitializeDatabaseWorker @AssistedInject constructor(
     @Assisted context: Context,
     @Assisted workerParams: WorkerParameters,
-    private val insertProjectUseCase: InsertProjectUseCase,
+    private val addProjectUseCase: AddProjectUseCase,
     private val gson: Gson,
     private val coroutineDispatcherProvider: CoroutineDispatcherProvider,
 ) : CoroutineWorker(context, workerParams) {
@@ -35,7 +35,7 @@ class InitializeDatabaseWorker @AssistedInject constructor(
 
             if (projectEntities != null) {
                 projectEntities.forEach { projectEntity ->
-                    insertProjectUseCase.invoke(projectEntity)
+                    addProjectUseCase.invoke(projectEntity)
                 }
                 Result.success()
             } else {

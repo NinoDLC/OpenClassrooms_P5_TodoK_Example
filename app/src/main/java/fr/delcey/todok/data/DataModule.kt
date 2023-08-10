@@ -8,8 +8,8 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import fr.delcey.todok.data.dao.ProjectDao
-import fr.delcey.todok.data.dao.TaskDao
+import fr.delcey.todok.data.project.ProjectDao
+import fr.delcey.todok.data.task.TaskDao
 import javax.inject.Singleton
 
 @Module

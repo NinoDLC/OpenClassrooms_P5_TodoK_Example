@@ -5,6 +5,7 @@ import io.mockk.every
 import io.mockk.mockk
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.test.StandardTestDispatcher
+import kotlinx.coroutines.test.TestCoroutineScheduler
 import kotlinx.coroutines.test.TestScope
 import kotlinx.coroutines.test.resetMain
 import kotlinx.coroutines.test.runTest
@@ -15,13 +16,15 @@ import org.junit.runners.model.Statement
 
 class TestCoroutineRule : TestRule {
 
-    val testCoroutineDispatcher = StandardTestDispatcher()
-    private val testCoroutineScope = TestScope(testCoroutineDispatcher)
+    private val testCoroutineScheduler = TestCoroutineScheduler()
+    val mainDispatcher = StandardTestDispatcher(testCoroutineScheduler)
+    val ioDispatcher = StandardTestDispatcher(testCoroutineScheduler)
+    private val testCoroutineScope = TestScope(mainDispatcher)
 
     override fun apply(base: Statement, description: Description): Statement = object : Statement() {
         @Throws(Throwable::class)
         override fun evaluate() {
-            Dispatchers.setMain(testCoroutineDispatcher)
+            Dispatchers.setMain(mainDispatcher)
 
             base.evaluate()
 
@@ -34,7 +37,7 @@ class TestCoroutineRule : TestRule {
     }
 
     fun getTestCoroutineDispatcherProvider() = mockk<CoroutineDispatcherProvider> {
-        every { main } returns testCoroutineDispatcher
-        every { io } returns testCoroutineDispatcher
+        every { main } returns mainDispatcher
+        every { io } returns ioDispatcher
     }
 }

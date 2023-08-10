@@ -1,7 +1,7 @@
 package fr.delcey.todok.domain.task
 
 import fr.delcey.todok.TestCoroutineRule
-import fr.delcey.todok.data.dao.TaskDao
+import fr.delcey.todok.data.task.TaskDao
 import io.mockk.coJustRun
 import io.mockk.coVerify
 import io.mockk.confirmVerified
@@ -15,13 +15,13 @@ class DeleteTaskUseCaseTest {
     @get:Rule
     val testCoroutineRule = TestCoroutineRule()
 
-    private val taskDao: TaskDao = mockk()
+    private val taskRepository: TaskRepository = mockk()
 
-    private val deleteTaskUseCase = DeleteTaskUseCase(taskDao)
+    private val deleteTaskUseCase = DeleteTaskUseCase(taskRepository)
 
     @Before
     fun setUp() {
-        coJustRun { taskDao.delete(any()) }
+        coJustRun { taskRepository.delete(any()) }
     }
 
     @Test
@@ -33,7 +33,7 @@ class DeleteTaskUseCaseTest {
         deleteTaskUseCase.invoke(taskId)
 
         // Then
-        coVerify(exactly = 1) { taskDao.delete(taskId) }
-        confirmVerified(taskDao)
+        coVerify(exactly = 1) { taskRepository.delete(taskId) }
+        confirmVerified(taskRepository)
     }
 }

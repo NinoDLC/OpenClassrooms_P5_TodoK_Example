@@ -2,7 +2,7 @@ package fr.delcey.todok.domain.project_with_tasks
 
 import assertk.assertThat
 import assertk.assertions.isEqualTo
-import fr.delcey.todok.data.dao.TaskDao
+import fr.delcey.todok.domain.project.ProjectRepository
 import io.mockk.confirmVerified
 import io.mockk.every
 import io.mockk.mockk
@@ -18,13 +18,13 @@ class GetProjectsWithTasksUseCaseTest {
         private val GET_ALL_PROJECTS_WITH_TASKS_FLOW: Flow<List<ProjectWithTasksEntity>> = flowOf()
     }
 
-    private val taskDao: TaskDao = mockk()
+    private val projectRepository: ProjectRepository = mockk()
 
-    private val getProjectsWithTasksUseCase = GetProjectsWithTasksUseCase(taskDao)
+    private val getProjectsWithTasksUseCase = GetProjectsWithTasksUseCase(projectRepository)
 
     @Before
     fun setUp() {
-        every { taskDao.getAllProjectsWithTasks() } returns GET_ALL_PROJECTS_WITH_TASKS_FLOW
+        every { projectRepository.getProjectsWithTasksAsFlow() } returns GET_ALL_PROJECTS_WITH_TASKS_FLOW
     }
 
     @Test
@@ -34,7 +34,7 @@ class GetProjectsWithTasksUseCaseTest {
 
         // Then
         assertThat(result).isEqualTo(GET_ALL_PROJECTS_WITH_TASKS_FLOW)
-        verify(exactly = 1) { taskDao.getAllProjectsWithTasks() }
-        confirmVerified(taskDao)
+        verify(exactly = 1) { projectRepository.getProjectsWithTasksAsFlow() }
+        confirmVerified(projectRepository)
     }
 }

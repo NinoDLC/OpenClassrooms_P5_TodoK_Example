@@ -5,9 +5,9 @@ import fr.delcey.todok.domain.project.GetProjectsUseCase
 import kotlinx.coroutines.flow.first
 import javax.inject.Inject
 
-class InsertRandomTaskUseCase @Inject constructor(
+class AddRandomTaskUseCase @Inject constructor(
     private val getProjectsUseCase: GetProjectsUseCase,
-    private val insertTaskUseCase: InsertTaskUseCase,
+    private val addTaskUseCase: AddTaskUseCase,
     private val buildConfigResolver: BuildConfigResolver,
 ) {
     companion object {
@@ -29,7 +29,7 @@ class InsertRandomTaskUseCase @Inject constructor(
             val projectEntity = getProjectsUseCase.invoke().first().random()
             val description = DESCRIPTIONS.random()
 
-            insertTaskUseCase.invoke(
+            addTaskUseCase.invoke(
                 TaskEntity(
                     projectId = projectEntity.id,
                     description = description,

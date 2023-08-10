@@ -15,7 +15,7 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 
-class InsertRandomTaskUseCaseTest {
+class AddRandomTaskUseCaseTest {
 
     companion object {
         private val DESCRIPTIONS = listOf(
@@ -35,15 +35,15 @@ class InsertRandomTaskUseCaseTest {
     val testCoroutineRule = TestCoroutineRule()
 
     private val getProjectsUseCase: GetProjectsUseCase = mockk()
-    private val insertTaskUseCase: InsertTaskUseCase = mockk()
+    private val addTaskUseCase: AddTaskUseCase = mockk()
     private val buildConfigResolver: BuildConfigResolver = mockk()
 
-    private val insertRandomTaskUseCase = InsertRandomTaskUseCase(getProjectsUseCase, insertTaskUseCase, buildConfigResolver)
+    private val addRandomTaskUseCase = AddRandomTaskUseCase(getProjectsUseCase, addTaskUseCase, buildConfigResolver)
 
     @Before
     fun setUp() {
         every { getProjectsUseCase.invoke() } returns flowOf(getDefaultProjectEntities())
-        coEvery { insertTaskUseCase.invoke(any()) } returns true
+        coEvery { addTaskUseCase.invoke(any()) } returns true
     }
 
     @Test
@@ -52,12 +52,12 @@ class InsertRandomTaskUseCaseTest {
         every { buildConfigResolver.isDebug } returns true
 
         // When
-        insertRandomTaskUseCase.invoke()
+        addRandomTaskUseCase.invoke()
 
         // Then
         coVerify(exactly = 1) {
             getProjectsUseCase.invoke()
-            insertTaskUseCase.invoke(
+            addTaskUseCase.invoke(
                 match { taskEntity ->
                     taskEntity.id == 0L
                         && getDefaultProjectEntities().map { it.id }.contains(taskEntity.projectId)
@@ -66,7 +66,7 @@ class InsertRandomTaskUseCaseTest {
             )
             buildConfigResolver.isDebug
         }
-        confirmVerified(getProjectsUseCase, insertTaskUseCase, buildConfigResolver)
+        confirmVerified(getProjectsUseCase, addTaskUseCase, buildConfigResolver)
     }
 
     @Test
@@ -75,10 +75,10 @@ class InsertRandomTaskUseCaseTest {
         every { buildConfigResolver.isDebug } returns false
 
         // When
-        insertRandomTaskUseCase.invoke()
+        addRandomTaskUseCase.invoke()
 
         // Then
         verify(exactly = 1) { buildConfigResolver.isDebug }
-        confirmVerified(getProjectsUseCase, insertTaskUseCase, buildConfigResolver)
+        confirmVerified(getProjectsUseCase, addTaskUseCase, buildConfigResolver)
     }
 }

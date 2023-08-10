@@ -5,13 +5,13 @@ import fr.delcey.todok.domain.project_with_tasks.ProjectWithTasksEntity
 import fr.delcey.todok.domain.task.TaskEntity
 
 // region ProjectEntity
-fun getDefaultProjectEntity(projectId: Int) = ProjectEntity(
+fun getDefaultProjectEntity(projectId: Number) = ProjectEntity(
     id = projectId.toLong(),
     name = "PROJECT_ENTITY_NAME:$projectId",
-    colorInt = projectId,
+    colorInt = projectId.toInt(),
 )
 
-fun getDefaultProjectEntities(projectCount: Int = 3) = List(projectCount) {
+fun getDefaultProjectEntities(projectCount: Number = 3) = List(projectCount.toInt()) {
     getDefaultProjectEntity(it)
 }
 
@@ -26,7 +26,7 @@ fun getDefaultProjectEntitiesAsJson() = """
 
 
 // region TaskEntity
-fun getDefaultTaskEntity(projectId: Int, taskId: Int) = TaskEntity(
+fun getDefaultTaskEntity(projectId: Number, taskId: Number) = TaskEntity(
     id = taskId.toLong(),
     projectId = projectId.toLong(),
     description = "TASK_ENTITY_DESCRIPTION:$projectId:$taskId",
@@ -50,15 +50,15 @@ fun getDefaultTaskEntity(projectId: Int, taskId: Int) = TaskEntity(
  * ```
  */
 fun getDefaultProjectWithTasksEntities(
-    projectCount: Int = 3,
-    taskCount: Int = 3,
-) = List(projectCount) { projectId ->
+    projectCount: Number = 3,
+    taskCount: Number = 3,
+) = List(projectCount.toInt()) { projectId ->
     ProjectWithTasksEntity(
         projectEntity = getDefaultProjectEntity(projectId = projectId),
-        taskEntities = List(taskCount) { taskId ->
+        taskEntities = List(taskCount.toInt()) { taskId ->
             getDefaultTaskEntity(
                 projectId = projectId,
-                taskId = projectId + (taskId * projectCount)
+                taskId = projectId + (taskId * projectCount.toInt())
             )
         },
     )

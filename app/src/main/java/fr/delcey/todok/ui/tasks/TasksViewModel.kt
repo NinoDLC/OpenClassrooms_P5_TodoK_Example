@@ -9,7 +9,7 @@ import fr.delcey.todok.domain.CoroutineDispatcherProvider
 import fr.delcey.todok.domain.project.ProjectEntity
 import fr.delcey.todok.domain.project_with_tasks.GetProjectsWithTasksUseCase
 import fr.delcey.todok.domain.task.DeleteTaskUseCase
-import fr.delcey.todok.domain.task.InsertRandomTaskUseCase
+import fr.delcey.todok.domain.task.AddRandomTaskUseCase
 import fr.delcey.todok.domain.task.TaskEntity
 import fr.delcey.todok.ui.utils.EquatableCallback
 import fr.delcey.todok.ui.utils.SingleLiveEvent
@@ -23,21 +23,22 @@ import javax.inject.Inject
 @HiltViewModel
 class TasksViewModel @Inject constructor(
     private val deleteTaskUseCase: DeleteTaskUseCase,
-    private val insertRandomTaskUseCase: InsertRandomTaskUseCase,
+    private val addRandomTaskUseCase: AddRandomTaskUseCase,
     private val coroutineDispatcherProvider: CoroutineDispatcherProvider,
     getProjectsWithTasksUseCase: GetProjectsWithTasksUseCase,
 ) : ViewModel() {
 
     private val taskSortingMutableStateFlow = MutableStateFlow(TaskSortingType.TASK_CHRONOLOGICAL)
 
-    val viewStateLiveData: LiveData<List<TasksViewStateItem>> = liveData(coroutineDispatcherProvider.io) {
+    val viewStateLiveData: LiveData<List<TasksViewStateItem>> = liveData {
         combine(
             getProjectsWithTasksUseCase.invoke(),
             taskSortingMutableStateFlow
         ) { projectsWithTasks, taskSorting ->
             emit(
                 when (taskSorting) {
-                    TaskSortingType.TASK_CHRONOLOGICAL -> projectsWithTasks.asSequence()
+                    TaskSortingType.TASK_CHRONOLOGICAL -> projectsWithTasks
+                        .asSequence()
                         .map { projectWithTasksEntity ->
                             projectWithTasksEntity.taskEntities.map { taskEntity ->
                                 mapItem(projectWithTasksEntity.projectEntity, taskEntity)
@@ -87,7 +88,7 @@ class TasksViewModel @Inject constructor(
 
     fun onAddButtonLongClicked() {
         viewModelScope.launch(coroutineDispatcherProvider.io) {
-            insertRandomTaskUseCase.invoke()
+            addRandomTaskUseCase.invoke()
         }
     }
 }

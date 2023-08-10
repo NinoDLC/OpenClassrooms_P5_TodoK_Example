@@ -27,6 +27,7 @@ object Libs {
     const val COROUTINES_TEST = "org.jetbrains.kotlinx:kotlinx-coroutines-test"
     const val JUNIT = "junit:junit"
     const val MOCKK = "io.mockk:mockk"
+    const val TURBINE = "app.cash.turbine:turbine"
 
 
     // Android tests

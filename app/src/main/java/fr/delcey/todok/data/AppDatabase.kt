@@ -12,12 +12,19 @@ import androidx.work.WorkManager
 import androidx.work.workDataOf
 import com.google.gson.Gson
 import fr.delcey.todok.R
-import fr.delcey.todok.data.dao.ProjectDao
-import fr.delcey.todok.data.dao.TaskDao
+import fr.delcey.todok.data.project.ProjectDao
+import fr.delcey.todok.data.task.TaskDao
 import fr.delcey.todok.domain.project.ProjectEntity
 import fr.delcey.todok.domain.task.TaskEntity
 
-@Database(entities = [TaskEntity::class, ProjectEntity::class], version = 1, exportSchema = false)
+@Database(
+    entities = [
+        TaskEntity::class,
+        ProjectEntity::class,
+    ],
+    version = 1,
+    exportSchema = false,
+)
 abstract class AppDatabase : RoomDatabase() {
 
     abstract fun getTaskDao(): TaskDao

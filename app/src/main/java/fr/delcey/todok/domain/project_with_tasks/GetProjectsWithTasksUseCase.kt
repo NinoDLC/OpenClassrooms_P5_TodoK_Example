@@ -1,13 +1,11 @@
 package fr.delcey.todok.domain.project_with_tasks
 
-import fr.delcey.todok.data.dao.TaskDao
+import fr.delcey.todok.domain.project.ProjectRepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
-import javax.inject.Singleton
 
-@Singleton
 class GetProjectsWithTasksUseCase @Inject constructor(
-    private val taskDao: TaskDao,
+    private val projectRepository: ProjectRepository,
 ) {
-    fun invoke(): Flow<List<ProjectWithTasksEntity>> = taskDao.getAllProjectsWithTasks()
+    fun invoke(): Flow<List<ProjectWithTasksEntity>> = projectRepository.getProjectsWithTasksAsFlow()
 }

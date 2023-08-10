@@ -8,7 +8,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import fr.delcey.todok.R
 import fr.delcey.todok.domain.CoroutineDispatcherProvider
 import fr.delcey.todok.domain.project.GetProjectsUseCase
-import fr.delcey.todok.domain.task.InsertTaskUseCase
+import fr.delcey.todok.domain.task.AddTaskUseCase
 import fr.delcey.todok.domain.task.TaskEntity
 import fr.delcey.todok.ui.utils.NativeText
 import fr.delcey.todok.ui.utils.SingleLiveEvent
@@ -21,7 +21,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class AddTaskViewModel @Inject constructor(
-    private val insertTaskUseCase: InsertTaskUseCase,
+    private val addTaskUseCase: AddTaskUseCase,
     private val coroutineDispatcherProvider: CoroutineDispatcherProvider,
     getProjectsUseCase: GetProjectsUseCase,
 ) : ViewModel() {
@@ -31,7 +31,7 @@ class AddTaskViewModel @Inject constructor(
     private var projectId: Long? = null
     private var description: String? = null
 
-    val viewStateLiveData: LiveData<AddTaskViewState> = liveData(coroutineDispatcherProvider.io) {
+    val viewStateLiveData: LiveData<AddTaskViewState> = liveData {
         combine(
             getProjectsUseCase.invoke(),
             isAddingTaskInDatabaseMutableStateFlow
@@ -70,7 +70,7 @@ class AddTaskViewModel @Inject constructor(
             isAddingTaskInDatabaseMutableStateFlow.value = true
 
             viewModelScope.launch(coroutineDispatcherProvider.io) {
-                val success = insertTaskUseCase.invoke(
+                val success = addTaskUseCase.invoke(
                     TaskEntity(
                         projectId = capturedProjectId,
                         description = capturedDescription

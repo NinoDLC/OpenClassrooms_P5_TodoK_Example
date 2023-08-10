@@ -48,6 +48,7 @@ val assertk = "0.25"
 val coroutinesTest = "1.7.0-Beta"
 val junit = "4.13.2"
 val mockk = "1.12.7"
+val turbine = "1.0.0"
 
 
 // Android tests
@@ -91,6 +92,7 @@ dependencies {
         api("${Libs.COROUTINES_TEST}:$coroutinesTest")
         api("${Libs.JUNIT}:$junit")
         api("${Libs.MOCKK}:$mockk")
+        api("${Libs.TURBINE}:$turbine")
 
 
         // Android tests

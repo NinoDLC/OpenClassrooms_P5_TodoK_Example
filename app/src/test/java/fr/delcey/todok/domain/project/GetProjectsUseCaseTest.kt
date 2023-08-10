@@ -2,7 +2,6 @@ package fr.delcey.todok.domain.project
 
 import assertk.assertThat
 import assertk.assertions.isEqualTo
-import fr.delcey.todok.data.dao.ProjectDao
 import io.mockk.confirmVerified
 import io.mockk.every
 import io.mockk.mockk
@@ -18,13 +17,13 @@ class GetProjectsUseCaseTest {
         private val GET_ALL_FLOW: Flow<List<ProjectEntity>> = flowOf()
     }
 
-    private val projectDao: ProjectDao = mockk()
+    private val projectRepository: ProjectRepository = mockk()
 
-    private val getProjectsUseCase = GetProjectsUseCase(projectDao)
+    private val getProjectsUseCase = GetProjectsUseCase(projectRepository)
 
     @Before
     fun setUp() {
-        every { projectDao.getAll() } returns GET_ALL_FLOW
+        every { projectRepository.getProjectsAsFlow() } returns GET_ALL_FLOW
     }
 
     @Test
@@ -34,7 +33,7 @@ class GetProjectsUseCaseTest {
 
         // Then
         assertThat(result).isEqualTo(GET_ALL_FLOW)
-        verify(exactly = 1) { projectDao.getAll() }
-        confirmVerified(projectDao)
+        verify(exactly = 1) { projectRepository.getProjectsAsFlow() }
+        confirmVerified(projectRepository)
     }
 }
