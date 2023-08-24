@@ -5,13 +5,12 @@ import assertk.assertThat
 import assertk.assertions.isEqualTo
 import fr.delcey.todok.TestCoroutineRule
 import fr.delcey.todok.domain.project_with_tasks.GetProjectsWithTasksUseCase
-import fr.delcey.todok.domain.task.DeleteTaskUseCase
 import fr.delcey.todok.domain.task.AddRandomTaskUseCase
+import fr.delcey.todok.domain.task.DeleteTaskUseCase
 import fr.delcey.todok.getDefaultProjectEntity
 import fr.delcey.todok.getDefaultProjectWithTasksEntities
 import fr.delcey.todok.getDefaultTaskEntity
 import fr.delcey.todok.observeForTesting
-import fr.delcey.todok.ui.utils.EquatableCallback
 import io.mockk.coJustRun
 import io.mockk.coVerify
 import io.mockk.confirmVerified
@@ -46,7 +45,6 @@ class TasksViewModelTest {
         tasksViewModel = TasksViewModel(
             deleteTaskUseCase = deleteTaskUseCase,
             addRandomTaskUseCase = addRandomTaskUseCase,
-            coroutineDispatcherProvider = testCoroutineRule.getTestCoroutineDispatcherProvider(),
             getProjectsWithTasksUseCase = getProjectsWithTasksUseCase,
         )
     }
@@ -196,32 +194,6 @@ class TasksViewModelTest {
     }
 
     @Test
-    fun `edge case - delete task`() = testCoroutineRule.runTest {
-        // When
-        tasksViewModel.viewStateLiveData.observeForTesting(this) {
-            (it.value?.first() as TasksViewStateItem.Task).onDeleteEvent.invoke()
-            runCurrent()
-
-            // Then
-            coVerify(exactly = 1) { deleteTaskUseCase.invoke(0) }
-            confirmVerified(deleteTaskUseCase)
-        }
-    }
-
-    @Test
-    fun `edge case - delete task for third task`() = testCoroutineRule.runTest {
-        // When
-        tasksViewModel.viewStateLiveData.observeForTesting(this) {
-            (it.value?.get(2) as TasksViewStateItem.Task).onDeleteEvent.invoke()
-            runCurrent()
-
-            // Then
-            coVerify(exactly = 1) { deleteTaskUseCase.invoke(2) }
-            confirmVerified(deleteTaskUseCase)
-        }
-    }
-
-    @Test
     fun `verify onAddButtonClicked`() = testCoroutineRule.runTest {
         // When
         tasksViewModel.onAddButtonClicked()
@@ -258,7 +230,6 @@ class TasksViewModelTest {
         taskId = getDefaultTaskEntity(projectId, taskId).id,
         projectColor = getDefaultProjectEntity(projectId).colorInt,
         description = getDefaultTaskEntity(projectId, taskId).description,
-        onDeleteEvent = EquatableCallback { }
     )
     // endregion OUT
 }

@@ -8,10 +8,9 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import fr.delcey.todok.domain.CoroutineDispatcherProvider
 import fr.delcey.todok.domain.project.ProjectEntity
 import fr.delcey.todok.domain.project_with_tasks.GetProjectsWithTasksUseCase
-import fr.delcey.todok.domain.task.DeleteTaskUseCase
 import fr.delcey.todok.domain.task.AddRandomTaskUseCase
+import fr.delcey.todok.domain.task.DeleteTaskUseCase
 import fr.delcey.todok.domain.task.TaskEntity
-import fr.delcey.todok.ui.utils.EquatableCallback
 import fr.delcey.todok.ui.utils.SingleLiveEvent
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.collect
@@ -24,7 +23,6 @@ import javax.inject.Inject
 class TasksViewModel @Inject constructor(
     private val deleteTaskUseCase: DeleteTaskUseCase,
     private val addRandomTaskUseCase: AddRandomTaskUseCase,
-    private val coroutineDispatcherProvider: CoroutineDispatcherProvider,
     getProjectsWithTasksUseCase: GetProjectsWithTasksUseCase,
 ) : ViewModel() {
 
@@ -69,11 +67,6 @@ class TasksViewModel @Inject constructor(
         taskId = taskEntity.id,
         projectColor = projectEntity.colorInt,
         description = taskEntity.description,
-        onDeleteEvent = EquatableCallback {
-            viewModelScope.launch(coroutineDispatcherProvider.io) {
-                deleteTaskUseCase.invoke(taskEntity.id)
-            }
-        }
     )
 
     fun onSortButtonClicked() {
@@ -87,8 +80,14 @@ class TasksViewModel @Inject constructor(
     }
 
     fun onAddButtonLongClicked() {
-        viewModelScope.launch(coroutineDispatcherProvider.io) {
+        viewModelScope.launch {
             addRandomTaskUseCase.invoke()
+        }
+    }
+
+    fun onTaskSwiped(taskId: Long) {
+        viewModelScope.launch {
+            deleteTaskUseCase.invoke(taskId)
         }
     }
 }

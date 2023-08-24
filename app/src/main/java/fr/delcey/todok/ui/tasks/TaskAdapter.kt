@@ -57,9 +57,9 @@ class TaskAdapter : ListAdapter<TasksViewStateItem, TaskAdapter.TaskViewHolder>(
             }
 
             fun bind(item: TasksViewStateItem.Task) {
+                binding.root.tag = item.taskId
                 binding.taskItemImageViewColor.setColorFilter(item.projectColor)
                 binding.taskItemTextViewDescription.text = item.description
-                binding.taskItemImageViewDelete.setOnClickListener { item.onDeleteEvent.invoke() }
             }
         }
     }

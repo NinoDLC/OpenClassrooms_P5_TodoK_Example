@@ -1,7 +1,6 @@
 package fr.delcey.todok.ui.tasks
 
 import androidx.annotation.ColorInt
-import fr.delcey.todok.ui.utils.EquatableCallback
 
 sealed class TasksViewStateItem(
     val type: Type,
@@ -21,7 +20,6 @@ sealed class TasksViewStateItem(
         @get:ColorInt @param:ColorInt
         val projectColor: Int,
         val description: String,
-        val onDeleteEvent: EquatableCallback,
     ) : TasksViewStateItem(Type.TASK)
 
     object EmptyState : TasksViewStateItem(Type.EMPTY_STATE)
