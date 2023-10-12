@@ -7,14 +7,15 @@ plugins {
 }
 
 android {
-    compileSdk = Versions.COMPILE_SDK
+    namespace = "fr.delcey.todok"
+    compileSdk = 34
 
     defaultConfig {
         applicationId = "fr.delcey.todok"
-        minSdk = Versions.MIN_SDK
-        targetSdk = Versions.TARGET_SDK
-        versionCode = Versions.VERSION_CODE
-        versionName = Versions.VERSION_NAME
+        minSdk = 21
+        targetSdk = 34
+        versionCode = 1
+        versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         testInstrumentationRunnerArguments["clearPackageData"] = "true"
@@ -24,31 +25,30 @@ android {
                 arguments["room.incremental"] = "true"
             }
         }
+        vectorDrawables {
+            useSupportLibrary = true
+        }
     }
 
     buildFeatures {
+        buildConfig = true
         viewBinding = true
     }
 
     buildTypes {
-        getByName("release") {
+        release {
             isMinifyEnabled = true
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }
     }
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
 
     kotlinOptions {
-        kotlinOptions {
-            jvmTarget = "11"
-            freeCompilerArgs = listOf(
-                "-opt-in=kotlin.ExperimentalStdlibApi",
-            )
-        }
+        jvmTarget = "17"
     }
 
     testOptions {
@@ -62,54 +62,50 @@ android {
 }
 
 dependencies {
-    api(platform(project(":depconstraints")))
-    kapt(platform(project(":depconstraints")))
-    androidTestApi(platform(project(":depconstraints")))
-
-
     // Android
 
-    implementation(Libs.APPCOMPAT)
-    implementation(Libs.CONSTRAINT_LAYOUT)
-    implementation(Libs.CORE_KTX)
-    implementation(Libs.FRAGMENT_KTX)
-    implementation(Libs.GSON)
-    implementation(Libs.HILT_ANDROID)
-    kapt(Libs.HILT_COMPILER)
-    implementation(Libs.HILT_WORK)
-    implementation(Libs.LIFECYCLE_LIVE_DATA_KTX)
-    implementation(Libs.MATERIAL)
-    kapt(Libs.ROOM_COMPILER)
-    implementation(Libs.ROOM_KTX)
-    implementation(Libs.WORK_HILT_COMPILER)
-    implementation(Libs.WORK_RUNTIME_KTX)
+    // XML
+    implementation("androidx.appcompat:appcompat:1.4.0")
+    implementation("androidx.constraintlayout:constraintlayout:2.1.4")
+    implementation("androidx.core:core-ktx:1.8.0")
+    implementation("androidx.fragment:fragment-ktx:1.5.2")
+    implementation("com.google.code.gson:gson:2.9.1")
+    implementation("com.google.dagger:hilt-android:2.44.2")
+    kapt("com.google.dagger:hilt-android-compiler:2.44.2")
+    implementation("androidx.hilt:hilt-work:1.0.0")
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.5.1")
+    implementation("com.google.android.material:material:1.6.1")
+    kapt("androidx.room:room-compiler:2.4.3")
+    implementation("androidx.room:room-ktx:2.4.3")
+    implementation("androidx.hilt:hilt-compiler:1.0.0")
+    implementation("androidx.work:work-runtime-ktx:2.7.1")
 
 
     // Unit tests
 
-    testImplementation(Libs.ARCH_CORE_TESTING) {
+    testImplementation("androidx.arch.core:core-testing:2.1.0") {
         // Removes the Mockito dependency bundled with arch core (wtf android ??)
         exclude("org.mockito", "mockito-core")
     }
-    testImplementation(Libs.ASSERTK)
-    testImplementation(Libs.COROUTINES_TEST)
-    testImplementation(Libs.JUNIT)
-    testImplementation(Libs.MOCKK)
-    testImplementation(Libs.TURBINE)
+    testImplementation("com.willowtreeapps.assertk:assertk-jvm:0.25")
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.0-Beta")
+    testImplementation("junit:junit:4.13.2")
+    testImplementation("io.mockk:mockk:1.12.7")
+    testImplementation("app.cash.turbine:turbine:1.0.0")
 
 
     // Android tests
 
-    androidTestImplementation(Libs.ARCH_CORE_TESTING) {
+    androidTestImplementation("androidx.arch.core:core-testing:2.1.0") {
         // Removes the Mockito dependency bundled with arch core (wtf android ??)
         exclude("org.mockito", "mockito-core")
     }
-    androidTestImplementation(Libs.ANDROIDX_TEST_CORE)
-    androidTestImplementation(Libs.ESPRESSO_CONTRIB)
-    androidTestImplementation(Libs.ESPRESSO_CORE)
-    androidTestImplementation(Libs.EXT_JUNIT)
-    androidTestImplementation(Libs.RULES)
-    androidTestImplementation(Libs.RUNNER)
+    androidTestImplementation("androidx.test:core:1.4.0")
+    androidTestImplementation("androidx.test.espresso:espresso-contrib:3.4.0")
+    androidTestImplementation("androidx.test.espresso:espresso-core:3.4.0")
+    androidTestImplementation("androidx.test.ext:junit:1.1.3")
+    androidTestImplementation("androidx.test:rules:1.4.0")
+    androidTestImplementation("androidx.test:runner:1.4.0")
 }
 
 koverAndroid {

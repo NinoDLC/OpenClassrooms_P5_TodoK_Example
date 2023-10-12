@@ -6,11 +6,11 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
-import androidx.viewbinding.BuildConfig
 import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkManager
 import androidx.work.workDataOf
 import com.google.gson.Gson
+import fr.delcey.todok.BuildConfig
 import fr.delcey.todok.R
 import fr.delcey.todok.data.project.ProjectDao
 import fr.delcey.todok.data.task.TaskDao
