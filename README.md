@@ -4,7 +4,7 @@
 # Sujets abordés / démontrés
  * Kotlin
  * Architecture MVVM (Model View ViewModel)
- * `LiveData` (en particulier le 'pont' `liveData {}` vers les coroutines)
+ * `LiveData` (en particulier le coroutine builder `liveData {}`)
  * `Coroutine` & `Flow`
  * Partie `ui`: `ViewBinding`
  * Partie `domain`: `Usecases` & `Entities`
@@ -14,4 +14,4 @@
  * Code Coverage entre supérieur à 93% (report disponible grâce à `Kover`)
 
 # Commandes utiles :
-`./gradlew koverHtmlReportDebug` pour générer le rapport de coverage des tests unitaires
+`./gradlew :app-xml:koverHtmlReportDebug` pour générer le rapport de coverage des tests unitaires pour la partie 'app-xml'

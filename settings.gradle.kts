@@ -14,4 +14,9 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "OpenClassrooms_P5_TodoK_Example"
-include(":app")
+include(
+    ":app-xml",
+    ":ui-xml",
+    ":data",
+    ":domain",
+)
