@@ -15,3 +15,4 @@
 
 # Commandes utiles :
 `./gradlew :app-xml:koverHtmlReportDebug` pour générer le rapport de coverage des tests unitaires pour la partie 'app-xml'
+`./gradlew :app-compose:koverHtmlReportDebug` pour générer le rapport de coverage des tests unitaires pour la partie 'app-compose'

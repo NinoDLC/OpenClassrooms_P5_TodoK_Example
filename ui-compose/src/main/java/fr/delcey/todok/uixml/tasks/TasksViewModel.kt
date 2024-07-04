@@ -6,7 +6,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import fr.delcey.todok.domain.project.model.ProjectEntity
 import fr.delcey.todok.domain.project_with_tasks.GetProjectsWithTasksUseCase
 import fr.delcey.todok.domain.task.AddRandomTaskUseCase
 import fr.delcey.todok.domain.task.DeleteTaskUseCase

@@ -7,7 +7,7 @@ plugins {
 }
 
 android {
-    namespace = "fr.delcey.todok.uixml"
+    namespace = "fr.delcey.todok.uicompose"
     compileSdk = 34
 
     defaultConfig {

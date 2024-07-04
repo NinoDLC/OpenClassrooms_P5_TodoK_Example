@@ -6,9 +6,9 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import fr.delcey.todok.uixml.databinding.TaskEmptyStateItemBinding
-import fr.delcey.todok.uixml.databinding.TaskHeaderItemBinding
-import fr.delcey.todok.uixml.databinding.TaskItemBinding
+import fr.delcey.todok.uicompose.databinding.TaskEmptyStateItemBinding
+import fr.delcey.todok.uicompose.databinding.TaskHeaderItemBinding
+import fr.delcey.todok.uicompose.databinding.TaskItemBinding
 
 class TaskAdapter : ListAdapter<TasksViewStateItem, TaskAdapter.TaskViewHolder>(TaskDiffCallback) {
 

@@ -13,9 +13,7 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import dagger.hilt.android.AndroidEntryPoint
-import fr.delcey.todok.uixml.R
-import fr.delcey.todok.uixml.databinding.TaskItemBinding
-import fr.delcey.todok.uixml.databinding.TasksFragmentBinding
+import fr.delcey.todok.uicompose.databinding.TasksFragmentBinding
 import fr.delcey.todok.uixml.NavigationListener
 import fr.delcey.todok.uixml.utils.viewBinding
 

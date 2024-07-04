@@ -7,11 +7,11 @@ plugins {
 }
 
 android {
-    namespace = "fr.delcey.todok.xml"
+    namespace = "fr.delcey.todok.compose"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "fr.delcey.todok.xml"
+        applicationId = "fr.delcey.todok.compose"
         minSdk = 21
         targetSdk = 34
         versionCode = 1
@@ -49,7 +49,7 @@ hilt {
 
 dependencies {
     // Hilt needs the "full picture" to perform its compile-time checks so we have to import all the related projects
-    implementation(project(":ui-xml"))
+    implementation(project(":ui-compose"))
     implementation(project(":domain"))
     implementation(project(":data"))
 
@@ -67,7 +67,7 @@ dependencies {
 dependencies {
     kover(project(":data"))
     kover(project(":domain"))
-    kover(project(":ui-xml"))
+    kover(project(":ui-compose"))
 }
 
 koverReport {
@@ -80,7 +80,7 @@ koverReport {
             )
             packages(
                 "hilt_aggregated_deps", // Hilt: GeneratedInjectors (NOT annotated by DaggerGenerated)
-                "fr.delcey.todok.uixml.databinding", // ViewBinding
+                "fr.delcey.todok.uicompose.databinding", // ViewBinding
             )
             classes(
                 // COMMON
@@ -104,7 +104,7 @@ koverReport {
 
                 // UI XML
                 // Utils
-                "fr.delcey.todok.uixml.utils*", // TODO Nino: UnitTest utils package
+                "fr.delcey.todok.uicompose.utils*", // TODO Nino: UnitTest utils package
 
                 // TODO Nino: Remove below when Kover can handle Android integration tests!
                 // Android UI
